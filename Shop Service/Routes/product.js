@@ -5,7 +5,10 @@ const Product = require("../models/Product");
 //get all products
 router.get("/", async(req, res)=>{
     try {
-        const products = await Product.find({});
+        const products = await Product.find({}).populate({
+            path: "seller",
+            select: "-password",
+          });
         return res.status(200).send(products);
     } catch (error) {
         console.log(error);
@@ -16,7 +19,10 @@ router.get("/", async(req, res)=>{
 //get one products
 router.get("/:id", async(req, res)=>{
     try {
-        const product = await Product.findById({ _id: req.params.id });
+        const product = await Product.findById({ _id: req.params.id }).populate({
+            path: "seller",
+            select: "-password",
+          });
         if(!product) return res.status(404).send("Product not found");
         return res.status(200).send(product);
     } catch (error) {
