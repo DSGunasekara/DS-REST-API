@@ -54,14 +54,16 @@ export const getOrder = (async(req, res)=>{
 export const createOrder = (async(req, res)=>{
     try {
         let order = new Order({...req.body});
-        // let totPrice = 0;
-        // // console.log(req.body);
-        // req.body.items.forEach(async(i)=>{
-        //     let product = await Product.findById(i.item);
-        //     order.tottalPrice += product.price * i.qty;
-            // console.log(totPrice);
-        // })
-        console.log(order);
+        let tot = 0;
+
+        let val = await Promise.all(order.items.map(async(i)=>{
+            let product = await Product.findById(i.item);
+            tot += product.quantity * i.qty;
+            return tot
+        }))
+
+        console.log(val);
+
         return res.status(201).send(order);
     } catch (error) {
         console.log(error);
