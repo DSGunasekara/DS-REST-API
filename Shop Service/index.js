@@ -1,11 +1,11 @@
-const express = require('express');
-const cors = require('cors');
-const connectDB = require('./Database/db')
+import express from 'express';
+import cors from 'cors';
+import connectDB from './Database/db.js';
 
-const userRoute = require('./Routes/user');
-const authRoute = require('./Routes/auth');
-const productRoute = require('./Routes/product');
-const orderRoute = require('./Routes/order')
+import userRoute from './Routes/user.js';
+import authRoute from "./Routes/auth.js";
+import productRoute from "./Routes/product.js";
+import orderRoute from "./Routes/order.js";
 
 const app = express();
 

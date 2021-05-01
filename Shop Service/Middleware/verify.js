@@ -1,7 +1,9 @@
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
-module.exports = function (req, res, next) {
+dotenv.config();
+
+const verify = function (req, res, next) {
   //Get token from header
   let token = req.header("x-access-token") || req.header("Authorization");
 
@@ -24,3 +26,5 @@ module.exports = function (req, res, next) {
     res.status(401).json({ msg: "Token is not valid" });
   }
 };
+
+export default verify;
