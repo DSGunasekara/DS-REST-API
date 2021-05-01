@@ -56,13 +56,17 @@ export const createOrder = (async(req, res)=>{
         let order = new Order({...req.body});
         let tot = 0;
 
-        let val = await Promise.all(order.items.map(async(i)=>{
+        await Promise.all(order.items.map(async(i)=>{
             let product = await Product.findById(i.item);
-            tot += product.quantity * i.qty;
-            return tot
+            product.quantity -= i.qty;
+            product.sold += i.qty;
+            tot += product.price * i.qty;
+            console.log(product.quantity);
+            await product.save();
         }))
 
-        console.log(val);
+        order.totalPrice = tot;
+        order.save();
 
         return res.status(201).send(order);
     } catch (error) {
