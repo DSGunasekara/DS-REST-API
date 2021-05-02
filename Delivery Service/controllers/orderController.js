@@ -42,10 +42,7 @@ export const getOrder = (async(req, res)=>{
                     select: "-role -password -__v"
                 }
             }
-          }).populate({
-            path: "customer",
-            select: "-password"
-        });
+          });
         if(!order) return res.status(404).send("Order not found");
         return res.status(200).send(order);
     } catch (error) {
@@ -57,22 +54,27 @@ export const getOrder = (async(req, res)=>{
 //Add a order
 export const createOrder = (async(req, res)=>{
     try {
-        let order = new Order({...req.body});
-        let tot = 0;
+        // let order = new Order({...req.body});
 
-        await Promise.all(order.items.map(async(i)=>{
-            let product = await Product.findById(i.item);
-            product.quantity -= i.qty;
-            product.sold += i.qty;
-            tot += product.price * i.qty;
-            console.log(product.quantity);
-            await product.save();
-        }))
+        // let tot = 0;
 
-        order.totalPrice = tot;
-        order.save();
-        await axios.post("http://localhost:5001/api/order/", {...order})
-        return res.status(201).send(order);
+        // await Promise.all(order.items.map(async(i)=>{
+        //     let product = await Product.findById(i.item);
+        //     product.quantity -= i.qty;
+        //     product.sold += i.qty;
+        //     tot += product.price * i.qty;
+        //     console.log(product.quantity);
+        //     await product.save();
+        // }))
+
+        // order.totalPrice = tot;
+        // order.save();
+        
+        const order = await axios.get(`http://localhost:5000/api/order/${req.body._doc._id}`)
+        let delivery = new Order({...order.data})
+        console.log(delivery);
+        await delivery.save()
+        return res.status(201).send("order");
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);

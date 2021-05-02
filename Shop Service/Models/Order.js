@@ -23,6 +23,11 @@ const OrderSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  status:{
+    type: String,
+    required: true,
+    default: "Pending"
+  }
 },{ timestamps: true });
 
 let Order = mongoose.model("Order", OrderSchema);

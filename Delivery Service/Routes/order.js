@@ -1,68 +1,12 @@
-const router = require("express").Router();
-// const User = require("../models/User");
-const Order = require("../models/Order");
+import express from 'express';
+const router = express.Router();
 
-//get all orders
-router.get("/", async(req, res)=>{
-    try {
-        const orders = await Order.find({});
-        return res.status(200).send(orders);
-    } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
-    }
-});
+import  {getOrder, getOrders, createOrder, updateOrder, deleteOrder } from '../controllers/orderController.js';
 
-//get one orders
-router.get("/:id", async(req, res)=>{
-    try {
-        const order = await Order.findById({ _id: req.params.id });
-        if(!order) return res.status(404).send("Order not found");
-        return res.status(200).send(order);
-    } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
-    }
-});
+router.get('/', getOrders);
+router.get('/:id', getOrder);
+router.post('/', createOrder);
+router.patch('/:id', updateOrder);
+router.delete('/:id', deleteOrder);
 
-//Add a order
-router.post("/", async(req, res)=>{
-    try {
-        let order = new Order({...req.body});
-        order = await order.save();
-        return res.status(201).send(order);
-    } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
-    }
-});
-
-//update a order
-router.patch("/:id", async(req, res)=>{
-    try {
-        const order = await Order.findById({ _id: req.params.id });
-        if(!order) return res.status(404).send("Order not found");
-        await Order.updateOne({ _id: order._id }, {...req.body});
-        return res.status(200).send("Order Updated");
-
-    } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
-    }
-});
-
-//delete a product
-router.delete("/:id", async(req, res)=>{
-    try {
-        const order = await Order.findById({ _id: req.params.id });
-        if(!order) return res.status(404).send("Order not found");
-        await order.remove()
-        return res.status(200).send("Order Removed");
-
-    } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
-    }
-});
-
-module.exports = router;
+export default router;

@@ -1,39 +1,84 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 
 const OrderSchema = new mongoose.Schema({
-  Items:[
+  items:[
     {
-      name:{
-        type: String,
-        required: true,
-      }, 
-      quantity:{
-        type: Number,
-        required: true
-      },
-      price:{
-        type: Number,
-        required: true
-      }
+        item:{
+            ItemName: {
+              type: String,
+              required: true,
+            },
+            price: {
+              type: Number,
+              required: true,
+            },
+            description:{
+              type: String
+            },
+            seller:{
+              name: {
+                type: String,
+                required: true,
+              },
+              email: {
+                type: String,
+                required: true,
+                unique: true,
+              },
+              contactNo: {
+                type: String,
+                required: true,
+                unique: true,
+              },
+              address:{
+                type: String,
+                required: true,
+              }
+          }
+        },
+        qty:{
+            type: Number,
+            required: true
+        }
     }
   ],
-  deliveryCharge:{
+  deliveryfee: {
     type: Number,
     required: true,
-    default: 100,
+    default: 100
   },
   totalPrice: {
     type: Number,
     required: true,
   },
-  senderLocation:{
-    type: String,
-    required: true,
+  customer:{
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    contactNo: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    address:{
+      type: String,
+      required: true,
+    }
   },
-  reciverLocation:{
+  status:{
     type: String,
     required: true,
+    default: "Pending"
   }
-});
+},{ timestamps: true });
 
-module.exports = mongoose.model("Order", OrderSchema);
+let Order = mongoose.model("Order", OrderSchema);
+
+export default Order;
