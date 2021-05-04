@@ -10,6 +10,9 @@ import bodyParser from 'body-parser';
 
 const app = express();
 
+app.use(bodyParser.json({limit:"30mb", extended:true}));
+app.use(bodyParser.urlencoded({limit:"30mb", extended:true}));
+
 //Database connection
 connectDB().then(
     () => console.log("Database Connected...."),
