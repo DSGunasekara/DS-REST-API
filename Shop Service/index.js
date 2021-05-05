@@ -6,8 +6,12 @@ import userRoute from './Routes/user.js';
 import authRoute from "./Routes/auth.js";
 import productRoute from "./Routes/product.js";
 import orderRoute from "./Routes/order.js";
+import bodyParser from 'body-parser';
 
 const app = express();
+
+app.use(bodyParser.json({limit:"30mb", extended:true}));
+app.use(bodyParser.urlencoded({limit:"30mb", extended:true}));
 
 //Database connection
 connectDB().then(
