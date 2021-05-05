@@ -1,7 +1,9 @@
 import express from "express";
+import axios from "axios";
+
 import Product from "../Models/Product.js";
 import Order from "../Models/Order.js";
-import axios from "axios";
+import CardPay from "../Models/CardPay.js";
 
 const router = express.Router();
 
@@ -65,15 +67,20 @@ export const createOrder = (async(req, res)=>{
             product.quantity -= i.qty;
             product.sold += i.qty;
             tot += product.price * i.qty;
-            console.log(product.quantity);
             await product.save();
         }))
 
         order.totalPrice = tot;
+        if(order.payment.paymentMethod === "Card"){
+            const card = new CardPay({...req.body});
+            const pay = await axios.post("http://localhost:5002/api/card/", {...card});
+            if(pay.status === 200){
+                order.payment.status = "Paid";
+            }
+        }
         order.save();
-        const jj = await axios.post("http://localhost:5001/api/order/", {...order})
-        // console.log(jj);
-        return res.status(201).send(order);
+        const delivery = await axios.post("http://localhost:5001/api/order/", {...order})
+        return res.status(201).send(delivery.data);
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);

@@ -16,7 +16,7 @@ const CardPaySchema = new mongoose.Schema({
       type: Number,
       default: 0
   },
-},{ timestamps: true });
+});
 
 let CardPay = mongoose.model("CardPay", CardPaySchema);
 

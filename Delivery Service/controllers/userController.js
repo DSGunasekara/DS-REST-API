@@ -1,6 +1,6 @@
 import express from "express";
 import User from "../Models/User.js";
-import bcrypt from "bcrypt";
+// import bcrypt from "bcrypt";
 
 const router = express.Router();
 
@@ -38,8 +38,8 @@ export const createUser = (async(req, res)=>{
 
     const user = new User({ ...req.body });
 
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(password, salt);
+    // const salt = await bcrypt.genSalt(10);
+    // user.password = await bcrypt.hash(password, salt);
 
     user.save((error, savedUser) => {
       if (error) return res.status(400).send(error);

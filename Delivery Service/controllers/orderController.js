@@ -72,7 +72,6 @@ export const createOrder = (async(req, res)=>{
         
         const order = await axios.get(`http://localhost:5000/api/order/${req.body._doc._id}`)
         let delivery = new Order({...order.data})
-        // console.log(delivery);
         await delivery.save()
         return res.status(201).send(delivery);
     } catch (error) {

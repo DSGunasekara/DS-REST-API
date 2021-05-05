@@ -2,10 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import connectDB from './Database/db.js';
 
-import userRoute from './Routes/user.js';
-import authRoute from "./Routes/auth.js";
-import productRoute from "./Routes/product.js";
-import orderRoute from "./Routes/order.js";
+import cardRoute from "./Routes/card.js"
 
 const app = express();
 
@@ -20,12 +17,9 @@ app.use(express.json({ extended: false })); //enables json
 
 app.get("/", (req, res) => res.send("API Running"));
 
-app.use("/api/user", userRoute);
-app.use("/api/login", authRoute);
-app.use("/api/product", productRoute);
-app.use("/api/order", orderRoute);
+app.use("/api/card", cardRoute);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5002;
 
 //starting app
 app.listen(PORT, () => console.log(`Server up and running on port ${PORT}`));
