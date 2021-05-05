@@ -24,12 +24,10 @@ const OrderSchema = new mongoose.Schema({
               email: {
                 type: String,
                 required: true,
-                unique: true,
               },
               contactNo: {
                 type: String,
                 required: true,
-                unique: true,
               },
               address:{
                 type: String,
@@ -79,6 +77,6 @@ const OrderSchema = new mongoose.Schema({
   }
 },{ timestamps: true });
 
-let Order = mongoose.model("Order", OrderSchema);
+let Order = mongoose.model("DeliveryOrder", OrderSchema);
 
 export default Order;

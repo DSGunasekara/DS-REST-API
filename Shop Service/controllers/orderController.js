@@ -71,7 +71,8 @@ export const createOrder = (async(req, res)=>{
 
         order.totalPrice = tot;
         order.save();
-        await axios.post("http://localhost:5001/api/order/", {...order})
+        const jj = await axios.post("http://localhost:5001/api/order/", {...order})
+        // console.log(jj);
         return res.status(201).send(order);
     } catch (error) {
         console.log(error);
