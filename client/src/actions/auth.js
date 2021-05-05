@@ -4,9 +4,13 @@ import * as api from '../api/index';
 export const signin = (formData, history)=> async (dispatch) =>{
     try{
         // log in the user
-        const  { data } = await api.signIn(formData);
+        console.log(formData);
+        const  data  = await api.login({...formData});
 
-        dispatch({type: AUTH, data});
+        console.log(data);
+
+      //  dispatch({type: AUTH, data});
+
 
         history.push('/')
     }catch (error){

@@ -9,7 +9,7 @@ import Icon from "./Icon";
 
 import {signin, signup} from '../../actions/auth';
 
-const initialState = {name: '', email: '', password: '', confirmPassword: ''};
+const initialState = {name: '', email: '', password: '', confirmPassword: '', contactNo:'', address:''};
 
 const Auth = () =>{
     const classes = useStyles();
@@ -64,7 +64,17 @@ const Auth = () =>{
                             )}
                             <Input name ={"email"} label={"Email Address"} handleChange={handleChange} type={"email"}/>
                             <Input name ={"password"} label={"Password"} handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword}/>
-                            {isSignup && <Input name={"confirmPassword"} label={"Repeat Password"} handleChange={handleChange} type={"password"}/>}
+                        {
+                            isSignup &&
+                            <Input name={"confirmPassword"} label={"Repeat Password"} handleChange={handleChange} type={"password"}/>
+                        }
+                        {
+                        isSignup && (
+                        <>
+                            <Input name ={"contactNo"} label={"Contact Number"} handleChange={handleChange}/>
+                            <Input name={"address"} label={"Address"} handleChange={handleChange}/>
+                        </>
+                        )}
                     </Grid>
 
                     <Button
