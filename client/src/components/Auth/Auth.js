@@ -8,7 +8,7 @@ import Input from "./Input";
 import Icon from "./Icon";
 
 import {signin, signup} from '../../actions/auth';
-
+//import {getId} from '../../actions/user';
 const initialState = {name: '', email: '', password: '', confirmPassword: '', contactNo:'', address:''};
 
 const Auth = () =>{
@@ -23,12 +23,13 @@ const Auth = () =>{
 
 
     //to handle the submit of the sign in form
-    const handleSubmit = (e)=>{
+    const handleSubmit = async (e)=>{
         e.preventDefault();
         if(isSignup){
-            dispatch(signup(formData, history));
+           await dispatch(signup(formData, history));
         }else {
-            dispatch(signin(formData, history));
+          await  dispatch(signin(formData, history));
+        //  await  dispatch(getId());
         }
     };
 

@@ -9,7 +9,7 @@ export const signin = (formData, history)=> async (dispatch) =>{
 
         console.log(data);
 
-      //  dispatch({type: AUTH, data});
+        dispatch({type: AUTH, data});
 
 
         history.push('/')
