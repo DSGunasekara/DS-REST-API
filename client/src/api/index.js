@@ -1,16 +1,18 @@
 import axios from "axios";
 
-//const API = axios.create({ baseURL : 'http://localhost:5000/api' });
+const API = axios.create({ baseURL : 'http://localhost:5000/api' });
 
-// API.interceptors.request.use((req) => {
-//     if(localStorage.getItem('profile')){
-//        return  req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
-//
-//     }
-//})
+API.interceptors.request.use((req) => {
+    if(localStorage.getItem('profile')){
+         req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).data.token}`;
 
-export const fetchProducts = () => axios.get('/products');
+    }
+    return req;
+})
 
+export const fetchProducts = () => API.get('/product');
 
-export const login = (formData) => axios.post('http://localhost:5000/api/login', formData);
-export const signUp = (formData) => axios.post('/signup', formData);
+//export const getId = () => API.get(`/login`);
+
+export const login = (formData) => API.post('/login', formData);
+export const signUp = (formData) => API.post('/signup', formData);

@@ -18,10 +18,7 @@ export const login = (async(req, res)=>{
     if (!isMatch) return res.status(401).send("Invalid credentials");
 
     const payload = {
-      user: {
-        id: user.id,
-        role: user.role,
-      },
+      user
     };
 
     return jwt.sign(
@@ -30,7 +27,7 @@ export const login = (async(req, res)=>{
       { expiresIn: 360000 },
       (err, token) => {
         if (err) throw err;
-        res.status(200).send(token);
+        res.status(200).send({token, payload});
       }
     );
   } catch (error) {
