@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {AppBar, Avatar, Toolbar, Typography, Button} from "@material-ui/core";
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Link,useHistory,useLocation } from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import decode from 'jwt-decode';
@@ -16,12 +17,16 @@ const Navbar = () =>{
 
 
     const logout = ()=>{
-        // dispatch({type:'LOGOUT'});
-        //
-        // history.push('/');
-        //
-        // setUser(null);
+        dispatch({type:'LOGOUT'});
+
+        history.push('/');
+
+        tempUser(null);
     };
+
+    const cartPage = () =>{
+
+    }
 
     // useEffect(()=>{
     //     const token = user?.token;
@@ -46,6 +51,9 @@ const Navbar = () =>{
                     <div className={classes.profile}>
                         <Avatar className={classes.purple}>{tempUser?.name.charAt(0)}</Avatar>
                         <Typography className={classes.userName} variant={"h6"}>{tempUser.name}</Typography>
+                        <Button color={"secondary"} onClick={cartPage}>
+                            <ShoppingCartIcon></ShoppingCartIcon>Cart
+                        </Button>
                         <Button variant={"contained"} className={classes.logout} color={"secondary"} onClick={logout}>Logout</Button>
                     </div>
                 ): (
