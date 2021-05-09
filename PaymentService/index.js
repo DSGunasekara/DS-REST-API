@@ -4,7 +4,7 @@ import connectDB from './Database/db.js';
 
 import userRoute from './Routes/user.js';
 import authRoute from "./Routes/auth.js";
-import productRoute from "./Routes/product.js";
+import productRoute from "./Routes/Product.js";
 import orderRoute from "./Routes/order.js";
 
 const app = express();
