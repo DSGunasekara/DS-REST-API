@@ -1,11 +1,17 @@
-import {FETCH_ALL } from "../constants/actionsTypes";
+import {FETCH_ALL, CREATE } from "../constants/actionsTypes";
 
 const ProductReducer = (state = {products: null}, action) =>{
-    if(action.type === FETCH_ALL){
-        console.log(action?.payload)
-        return {...state, products: action?.payload};
-    }else{
-        return state;
+
+    switch (action.type){
+        case FETCH_ALL:
+            return {...state, products: action?.payload};
+
+        case CREATE:
+            return {...state, products: action?.payload};
+
+        default:
+            return state;
+
     }
 }
 export default ProductReducer;

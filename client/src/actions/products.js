@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from "../constants/actionsTypes";
+import { FETCH_ALL, CREATE } from "../constants/actionsTypes";
 import * as api from '../api/index.js';
 
 
@@ -15,3 +15,14 @@ export const getProducts = () => async (dispatch) => {
         console.log(error);
     }
 };
+
+export const createProduct = (product) => async(dispatch) => {
+    try{
+        const { data } = await api.createProduct(product);
+
+        dispatch({type: CREATE, payload:data});
+
+    }catch(error){
+        console.log("create post error" + error);
+    }
+}
