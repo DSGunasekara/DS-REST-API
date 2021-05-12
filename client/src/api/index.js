@@ -12,11 +12,14 @@ API.interceptors.request.use((req) => {
 
 export const fetchProducts = () => API.get('/product');
 
-export const createProduct = (newProduct) => API.post('/product');
+export const createProduct = (newProduct) => API.post('/product', newProduct);
 
-export const fetchProduct = (id) =>API.get(`/product/${id}`)
+export const fetchProduct = (id) =>API.get(`/product/${id}`);
 
 //export const getId = () => API.get(`/login`);
 
 export const login = (formData) => API.post('/login', formData);
 export const signUp = (formData) => API.post('/signup', formData);
+
+
+export const getOrders = () => API.post('/order');
