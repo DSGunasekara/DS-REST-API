@@ -12,6 +12,8 @@ API.interceptors.request.use((req) => {
 
 export const fetchProducts = () => API.get('/product');
 
+export const createProduct = (newProduct) => API.post('/product');
+
 //export const getId = () => API.get(`/login`);
 
 export const login = (formData) => API.post('/login', formData);
