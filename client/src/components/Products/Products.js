@@ -26,7 +26,7 @@ const Products = ()=>{
         !products?.length ? <CircularProgress/> : (
             <Grid className={classes.mainContainer} container alignItems={"stretch"} spacing={3}>
                 {products.map((product) =>(
-                    <Grid key={product._id} item xs={12} sm={6}>
+                    <Grid key={product._id} item xs={12} sm={4}>
                         <div onClick={()=>single(product._id)}>
                             <Product product={product} ></Product>
                         </div>

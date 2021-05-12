@@ -11,10 +11,9 @@ const Product = ({product}) =>{
     const dispatch = useDispatch();
     const user = JSON.parse(localStorage.getItem('profile'));
 
-
     return(
         <Card className={classes.card} >
-            <CardMedia className={classes.media} image={product?.images} title={product.ItemName}/>
+            <CardMedia className={classes.media} image={product.images} title={product.ItemName}/>
             <div>
                 <Typography variant={"h6"}>{product.ItemName}</Typography>
             </div>
