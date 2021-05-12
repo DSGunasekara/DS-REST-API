@@ -15,11 +15,11 @@ const Home= () =>{
     return(
         <Grow in>
             <Container>
-                    <Grid container justify={"space-between"} alignItems={"stretch"} spacing={3}>
-                        <Grid item={12} sm={7}>
+                    {/* <Grid container justify={"space-between"} alignItems={"stretch"} spacing={3}> */}
+                        {/* <Grid item={12} sm={7}> */}
                             <Product setCurrentId={setCurrentId}/>
-                        </Grid>
-                    </Grid>
+                        {/* </Grid> */}
+                    {/* </Grid> */}
             </Container>
         </Grow>
     )

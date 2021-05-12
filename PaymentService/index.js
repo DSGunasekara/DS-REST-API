@@ -2,10 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import connectDB from './Database/db.js';
 
-import userRoute from './Routes/user.js';
-import authRoute from "./Routes/auth.js";
-import productRoute from "./Routes/Product.js";
-import orderRoute from "./Routes/order.js";
+import cardRoute from './Routes/card.js'
 
 const app = express();
 

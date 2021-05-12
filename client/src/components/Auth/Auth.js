@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { Avatar, Button, Paper, Grid, Typography, Container, TextField } from "@material-ui/core";
+import { Alert, AlertTitle } from '@material-ui/lab';
 import {useDispatch} from "react-redux";
 import {useHistory} from 'react-router-dom';
 import LockOutlineIcon from '@material-ui/icons/LockOutlined';
@@ -17,6 +18,7 @@ const Auth = () =>{
     const [isSignup, setIsSignup]= useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState(initialState);
+    const [logError, setLogError ] = useState(false);
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -28,7 +30,10 @@ const Auth = () =>{
         if(isSignup){
            await dispatch(signup(formData, history));
         }else {
-          await  dispatch(signin(formData, history));
+          const res = await  dispatch(signin(formData, history));
+          if(res?.response.status === 401){
+              setLogError(true);
+          }
         //  await  dispatch(getId());
         }
     };
@@ -50,6 +55,14 @@ const Auth = () =>{
     }
     return(
         <Container component={"main"} maxWidth={"xs"}>
+            { logError &&(
+            <Alert severity="error">
+                <AlertTitle>Login Error</AlertTitle>
+                Invalid Credentials
+             </Alert>
+            )
+            }
+                    
             <Paper className={classes.paper} elevation={3}>
                 <Avatar className={classes.avatar}>
                     <LockOutlineIcon/>
