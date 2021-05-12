@@ -12,10 +12,9 @@ const Product = ({product}) =>{
     const user = JSON.parse(localStorage.getItem('profile'));
     console.log(product.images);
 
-
     return(
         <Card className={classes.card} >
-            <CardMedia className={classes.media} image={product?.images} title={product.ItemName}/>
+            <CardMedia className={classes.media} image={product.images} title={product.ItemName}/>
             <div>
                 <Typography variant={"h6"}>{product.ItemName}</Typography>
             </div>

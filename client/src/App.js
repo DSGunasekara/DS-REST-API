@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Auth from "./components/Auth/Auth"
 import Home from "./components/Home/Home";
 import Product from "./components/Products/Product/Product"
+import singleView from "./components/SingleView/SingleView"
 
 const App = () =>{
     return(
@@ -16,7 +17,7 @@ const App = () =>{
                 <Switch>
                     <Route path={"/"} exact component={Home}/>
                     <Route path={"/auth"} exact component={Auth}/>
-                    <Route path={"/product/:id"} exact component={Product}/>
+                    <Route path={"/product/:id"} exact component={singleView}/>
                 </Switch>
             </Container>
         </BrowserRouter>
