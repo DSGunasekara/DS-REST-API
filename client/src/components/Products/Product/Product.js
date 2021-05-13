@@ -1,15 +1,15 @@
 import React from 'react';
-import { Card, CardActions, CardContent, CardMedia, Button, Typography } from "@material-ui/core";
-import moment from "moment";
+import { Card, CardMedia, Typography } from "@material-ui/core";
+// import moment from "moment";
 import useStyles from './styles';
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 
 
 const Product = ({product}) =>{
     const classes = useStyles();
-    const dispatch = useDispatch();
-    const user = JSON.parse(localStorage.getItem('profile'));
+    // const dispatch = useDispatch();
+    // const user = JSON.parse(localStorage.getItem('profile'));
 
     return(
         <Card className={classes.card} >
@@ -17,7 +17,6 @@ const Product = ({product}) =>{
             <div>
                 <Typography variant={"h6"}>{product.ItemName}</Typography>
             </div>
-
         </Card>
     )
 

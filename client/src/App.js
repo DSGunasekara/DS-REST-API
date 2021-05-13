@@ -6,7 +6,7 @@ import {BrowserRouter, Switch, Route} from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Auth from "./components/Auth/Auth"
 import Home from "./components/Home/Home";
-import Product from "./components/Products/Product/Product";
+// import Product from "./components/Products/Product/Product";
 import singleView from "./components/SingleView/SingleView";
 import Orders from './components/Cart/Cart';
 import AddProductPage from "./components/AddProductPage/AddProductPage";

@@ -1,5 +1,5 @@
 import React, { useEffect} from 'react';
-import { Grid, CircularProgress, Button, Container } from "@material-ui/core";
+import { Grid, CircularProgress } from "@material-ui/core";
 import useStyles from './styles';
 import Product from "./Product/Product";
 import { useSelector, useDispatch } from "react-redux";
@@ -15,7 +15,7 @@ const Products = ()=>{
 
     useEffect(()=>{
         dispatch(getProducts());
-    },[])
+    },[dispatch])
 
     const products = useSelector((state) => state.products.products);
     const single = (id)=>{
