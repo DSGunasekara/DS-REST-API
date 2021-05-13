@@ -23,7 +23,7 @@ const Navbar = () =>{
     };
 
     const cartPage = () =>{
-
+        history.push('/cart');
     }
 
     const addProduct = () =>{

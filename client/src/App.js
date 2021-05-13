@@ -10,6 +10,7 @@ import Home from "./components/Home/Home";
 import singleView from "./components/SingleView/SingleView";
 import Orders from './components/Cart/Cart';
 import AddProductPage from "./components/AddProductPage/AddProductPage";
+import Cart from "./components/Cart/Cart"
 
 const App = () =>{
     return(
@@ -22,6 +23,7 @@ const App = () =>{
                     <Route path={"/product/:id"} exact component={singleView}/>
                     <Route path={"/orders"} exact component={Orders}/>
                     <Route path={"/AddProductPage"} exact component={AddProductPage}/>
+                    <Route path={"/cart"} exact component={Cart}/>
                 </Switch>
             </Container>
         </BrowserRouter>

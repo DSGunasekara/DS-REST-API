@@ -39,6 +39,24 @@ export const getCartItem = (async(req, res)=>{
     }
 });
 
+//get user items
+export const getUserItems = (async(req, res)=>{
+    try {
+        const items = await Cart.find({ customer: req.params.id }).populate({
+            path: "customer",
+            select: "-password",
+          })
+          .populate({
+              path: "item"
+          });
+        if(!items) return res.status(404).send("Cart item not found");
+        return res.status(200).send(items);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+});
+
 //Add a product
 export const createCartItem = (async(req, res)=>{
     try {
