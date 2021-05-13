@@ -14,7 +14,7 @@ const useStyles = makeStyles({
       maxWidth: 1024,
     },
     media: {
-      height: 500,
+      height: 400,
     },
   });
 
@@ -89,6 +89,9 @@ const SingleView = () =>{
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
                         Available Quantity: <b> {product.quantity}</b>
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        Unit Price: <b> {product.price}</b>
                     </Typography>
                     </CardContent>
                 </CardActionArea>
