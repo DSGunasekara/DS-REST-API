@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CartItem({ item, removeItem }) {
+export default function CardPay({ item, removeItem }) {
   const classes = useStyles();
 
   return (
