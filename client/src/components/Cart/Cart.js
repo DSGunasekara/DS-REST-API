@@ -6,6 +6,8 @@ import {Card, CardActions, CardContent, Button, Typography, Grid} from '@materia
 import { getCartItems } from "../../actions/cart"
 import CartItem from "./CartItem"
 import { removeCartItem } from '../../actions/cart';
+import CardPay from "../Card/CardPay"
+import MobilePay from "../MobilePay/MobilePay"
 
 const useStyles = makeStyles({
   root: {
@@ -22,6 +24,8 @@ const Cart = () =>{
     const classes = useStyles();
 
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')).data.payload.user._id);
+    const [cardPayment, setCardPayment ] = useState(false);
+    const [mobilePayment, setMobilePayment ] = useState(false);
 
     let items = useSelector((state)=> state.Cart.cart)
     const [cartItems, setCartItems ] = useState(items);
@@ -37,14 +41,6 @@ const Cart = () =>{
 
     console.log(items);
 
-    // const totAmount = () =>{
-    //     let temp = 0;
-    //     cartItems?.foreach((item)=>{
-    //         temp += item.qty * item.item.price
-    //     })
-    //     return temp;
-    // }
-
     useEffect(()=>{
         let temp = 0;
         if(cartItems?.length > 0){
@@ -58,6 +54,23 @@ const Cart = () =>{
     const removeItem = async(id) => {
         setCartItems(cartItems.filter(item=> item._id !== id))
         dispatch(removeCartItem(id));
+      }
+
+      const chooseCard = (id) =>{
+          switch(id){
+            case 1:
+                setCardPayment(true);
+                setMobilePayment(false);
+                break;
+            case 2:
+                setCardPayment(false);
+                setMobilePayment(true);
+                break;
+            default:
+                setCardPayment(false);
+                setMobilePayment(false);
+          }
+
       }
 
 
@@ -77,14 +90,25 @@ const Cart = () =>{
                             </Typography>
                         </Grid>
                         <Grid item xs={4}>
-                            <Button size="small" variant="outlined" color="primary">Pay with Card</Button>
+                            <Button size="small" variant="outlined" color="primary" onClick={() => chooseCard(1)}>Pay with Card</Button>
                         </Grid>
                         <Grid item xs={4}>
-                            <Button size="small" variant="outlined" color="primary">Pay with Mobile Account</Button>
+                            <Button size="small" variant="outlined" color="primary" onClick={() => chooseCard(2)}>Pay with Mobile Account</Button>
                         </Grid>
                     </Grid>        
                 </CardContent>
             </Card>
+            {
+                cardPayment && (
+                    <CardPay total={total}/>
+                )
+            }
+            {
+                mobilePayment && (
+                    <MobilePay total={total}/>
+                )
+            }
+           
         </>
     )
 }

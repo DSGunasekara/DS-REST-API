@@ -12,45 +12,29 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CardPay({total}) {
+export default function MobilePay({total}) {
   const classes = useStyles();
 
   const [ cardData, setCardData] = useState({
-    cardHolder: "",
-    cardNumber: "",
+    mobileNumber: "",
     amount: "",
-    cvc: ""
 });
 
   return (
     <Card className={classes.root}>
       <CardContent>
         <Grid container item xs={12} spacing={3}>
-            <Grid item xs={3}>
+            <Grid item xs={6}>
                 <Typography className={classes.title} color="textPrimary" gutterBottom>
-                Holder Name: <TextField name={"cardHolder"} variant={'outlined'} label={"Holder Name"} fullWidth value={cardData.cardHolder}
-                           onChange={ (e) => setCardData({...cardData, cardHolder: e.target.value})}
+                Mobile Number: <TextField name={"mobileNumber"} variant={'outlined'} label={"Mobile Number"} fullWidth value={cardData.mobileNumber}
+                           onChange={ (e) => setCardData({...cardData, mobileNumber: e.target.value})}
                 />
                 </Typography>
             </Grid>
-            <Grid item xs={3}>
-            <Typography className={classes.title} color="textPrimary" gutterBottom>
-                Card Number: <TextField name={"cardHolder"} variant={'outlined'} label={"Card Number"} fullWidth value={cardData.cardNumber}
-                           onChange={ (e) => setCardData({...cardData, cardNumber: e.target.value})}
-                />
-                </Typography>
-            </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={6}>
             <Typography className={classes.title} color="textPrimary" gutterBottom>
             Amount: <TextField name={"cardHolder"} variant={'outlined'} label={"Amount"} fullWidth value={total}
                            onChange={ (e) => setCardData({...cardData, amount: total})}
-                />
-                </Typography>
-            </Grid>
-            <Grid item xs={3}>
-            <Typography className={classes.title} color="textPrimary" gutterBottom>
-            CVC: <TextField name={"cardHolder"} variant={'outlined'} label={"CVC"} fullWidth value={cardData.cvc}
-                           onChange={ (e) => setCardData({...cardData, cvc: e.target.value})}
                 />
                 </Typography>
             </Grid>
