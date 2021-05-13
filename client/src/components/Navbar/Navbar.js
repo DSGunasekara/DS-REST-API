@@ -27,7 +27,9 @@ const Navbar = () =>{
     }
 
     const addProduct = () =>{
+        dispatch({type:'CREATE'});
 
+        history.push('/AddProductPage');
     }
 
     useEffect(()=>{

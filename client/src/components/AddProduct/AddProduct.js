@@ -17,13 +17,15 @@ const AddProduct = ({currentId, setCurrentId}) =>{
 
     const classes = useStyles();
     const dispatch = useDispatch();
-
+    const user = JSON.parse(localStorage.getItem('profile'));
+    console.log(user.data.payload.user._id);
     const handleSubmit = async (e) =>{
         e.preventDefault();
             dispatch(createProduct(currentId, {...productData, name:user?.result?.name}));
+        //    clear();
     };
 
-    if(!user?.result?.name){
+    if(!user?.data.payload.user._id){
         return (
             <Paper className={classes.paper}>
                 <Typography variant={"h6"} align={"center"}>
@@ -33,9 +35,10 @@ const AddProduct = ({currentId, setCurrentId}) =>{
         )
     }
 
-    const clear = () =>{
-
-    }
+     const clear = () =>{
+    //     setCurrentId(null);
+    //     setProductData({ItemName:'', price:'', description:'', images:'', quantity:''});
+     }
 
     return(
         <Paper className={classes.paper}>
