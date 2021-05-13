@@ -1,25 +1,28 @@
-import React, { useState, useEffect} from "react";
-import Product from "../Products/Products";
+import React, { useEffect } from "react";
+import {useDispatch, useSelector} from "react-redux";
 import { useLocation } from 'react-router-dom';
-import {useSelector} from "react-redux";
+import { getProduct } from "../../actions/products";
+;
 
 const SingleView = () =>{
 
     const location = useLocation();
-    const [product, setProduct ] = useState(null)
-    // const abc = location.split('/');
-     console.log(location.pathname.split('/'));
+    const dispatch = useDispatch();
+    let product = useSelector((state) => state.products.product);
+    // const [product, setProduct ] = useState(null)
     const id = location.pathname.split('/')[2];
+    // let product = null;
 
-    const products = useSelector((state) => state.products.products);
-    // setProduct(products.filter((item)=> item._id === id));
+    useEffect(()=>{
+        dispatch(getProduct(id));
+        
+    }, [id, dispatch])
 
-    useEffect( () =>{
-        // const products = useSelector((state) => state.products.products);
-        setProduct(products.filter((item)=> item._id === id));
-    }, [location]);
+    
+    console.log(product);
+
     return(
-            <h1>{product}</h1>
+            <h1>{product?.ItemName}</h1>
     )
 }
 

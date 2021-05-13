@@ -21,16 +21,12 @@ const Products = ()=>{
     const single = (id)=>{
         history.push(`/product/${id}`)
     }
-    console.log(products);
+
     return(
         !products?.length ? <CircularProgress/> : (
             <Grid className={classes.mainContainer} container alignItems={"stretch"} spacing={3}>
                 {products.map((product) =>(
-<<<<<<< HEAD
-                    <Grid key={product._id} item sm={4}>
-=======
                     <Grid key={product._id} item xs={12} sm={4}>
->>>>>>> vidura
                         <div onClick={()=>single(product._id)}>
                             <Product product={product} ></Product>
                         </div>

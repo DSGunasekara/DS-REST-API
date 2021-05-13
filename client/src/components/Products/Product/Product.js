@@ -10,7 +10,6 @@ const Product = ({product}) =>{
     const classes = useStyles();
     const dispatch = useDispatch();
     const user = JSON.parse(localStorage.getItem('profile'));
-    console.log(product.images);
 
     return(
         <Card className={classes.card} >

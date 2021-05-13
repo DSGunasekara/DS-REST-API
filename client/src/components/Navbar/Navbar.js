@@ -3,7 +3,7 @@ import {AppBar, Avatar, Toolbar, Typography, Button} from "@material-ui/core";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AddIcon from '@material-ui/icons/Add';
 import { Link,useHistory,useLocation } from 'react-router-dom';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import decode from 'jwt-decode';
 import useStyles from './styles'
 
@@ -12,11 +12,7 @@ const Navbar = () =>{
     const  dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
-   // const tempUser = useSelector(state => state.auth.authData);
-  //  const [user, setUser] = useState(useSelector(state => state.auth.authData));
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-    console.log(user);
-
 
     const logout = ()=>{
         dispatch({type:'LOGOUT'});

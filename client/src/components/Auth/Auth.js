@@ -31,7 +31,7 @@ const Auth = () =>{
            await dispatch(signup(formData, history));
         }else {
           const res = await  dispatch(signin(formData, history));
-          if(res?.response.status === 401){
+          if(res?.response?.status !== 200){
               setLogError(true);
           }
         //  await  dispatch(getId());

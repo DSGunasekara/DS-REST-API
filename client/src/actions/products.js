@@ -8,7 +8,7 @@ export const getProducts = () => async (dispatch) => {
     try{
 
         const {data} = await api.fetchProducts();
-        console.log(data);
+
         dispatch ({type: FETCH_ALL, payload: data});
 
     }catch (error) {
@@ -27,12 +27,12 @@ export const createProduct = (product) => async(dispatch) => {
     }
 }
 
-export const getProduct = () => async (dispatch, id) => {
+export const getProduct = (id) => async (dispatch) => {
 
     try{
 
         const {data} = await api.fetchProduct(id);
-        console.log(data);
+
         dispatch ({type: FETCH_ONE, payload: data});
 
     }catch (error) {
