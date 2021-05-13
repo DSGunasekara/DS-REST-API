@@ -1,12 +1,13 @@
 import express from 'express';
 import cors from 'cors';
+import bodyParser from 'body-parser';
 import connectDB from './Database/db.js';
 
 import userRoute from './Routes/user.js';
 import authRoute from "./Routes/auth.js";
 import productRoute from "./Routes/product.js";
 import orderRoute from "./Routes/order.js";
-import bodyParser from 'body-parser';
+import cartRoute from "./Routes/cart.js";
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use("/api/user", userRoute);
 app.use("/api/login", authRoute);
 app.use("/api/product", productRoute);
 app.use("/api/order", orderRoute);
+app.use("/api/cart", cartRoute);
 
 const PORT = process.env.PORT || 5000;
 

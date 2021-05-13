@@ -3,8 +3,11 @@ import {useDispatch, useSelector} from "react-redux";
 import { useLocation } from 'react-router-dom';
 import { Card, CardMedia, Typography, CardContent, CardActionArea, CardActions, Button } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
+import { Alert, AlertTitle } from '@material-ui/lab';
+import Snackbar from '@material-ui/core/Snackbar';
 
 import { getProduct } from "../../actions/products";
+import { pushToCart } from "../../actions/cart"
 
 const useStyles = makeStyles({
     root: {
@@ -20,6 +23,8 @@ const SingleView = () =>{
     const location = useLocation();
     const dispatch = useDispatch();
     let product = useSelector((state) => state.products.product);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')).data.payload.user._id);
+    const [open, setOpen] = React.useState(false);
     const classes = useStyles();
 
     let [qty, setQty ] = useState(1);
@@ -42,9 +47,33 @@ const SingleView = () =>{
         }
     }
 
+    const addToCart = () => {
+        let cartItem = {
+            item: id,
+            qty,
+            customer: user
+        }
+        dispatch(pushToCart(cartItem));
+        setQty(1);
+        setOpen(true);
+    }
+
+      const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
+
     return(
         product && (    
             <Card className={classes.root}>
+                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                    <Alert onClose={handleClose} severity="success">
+                        <AlertTitle>Item Added to Cart</AlertTitle>
+                    </Alert>
+                </Snackbar>
                 <CardActionArea>
                     <CardMedia
                     className={classes.media}
@@ -64,18 +93,14 @@ const SingleView = () =>{
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <Button variant="outlined" size="small" color="primary" onClick={increase}>
-                    +
-                    </Button>
+                <Button variant="outlined" size="small" color="secondary" onClick={decrease}>-</Button>
                     <Typography variant="body2" color="textSecondary" component="p">
                         Quantity: <b> {qty}</b>
                     </Typography>
-                    <Button variant="outlined" size="small" color="secondary" onClick={decrease}>
-                    -
-                    </Button>
+                    <Button variant="outlined" size="small" color="primary" onClick={increase}>+</Button>
                 </CardActions>
                 <CardActions>
-                    <Button variant="contained" size="small" color="primary">Add to Cart</Button>
+                    <Button variant="contained" size="small" color="primary" onClick={ addToCart }>Add to Cart</Button>
                 </CardActions>
             </Card>
         )
