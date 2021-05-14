@@ -1,6 +1,6 @@
 import express from "express";
 import Product from "../Models/Product.js";
-import User from "../Models/User.js";
+import Cart from "../Models/Cart.js";
 
 const router = express.Router();
 
@@ -64,6 +64,7 @@ export const deleteProduct = (async(req, res)=>{
     try {
         const product = await Product.findById({ _id: req.params.id });
         if(!product) return res.status(404).send("Product not found");
+        await Cart.deleteMany({item: product._id});
         await product.remove()
         return res.status(200).send("Product Removed");
 

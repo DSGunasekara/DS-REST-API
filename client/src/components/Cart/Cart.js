@@ -45,7 +45,7 @@ const Cart = () =>{
         let temp = 0;
         if(cartItems?.length > 0){
             cartItems.forEach(item => {
-                temp += item.qty * item.item.price
+                temp += item?.qty * item?.item?.price
             });
             setTotal(temp)
         }

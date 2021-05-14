@@ -21,22 +21,22 @@ export default function CartItem({ item, removeItem }) {
         <Grid container item xs={12} spacing={3}>
             <Grid item xs={3}>
                 <Typography className={classes.title} color="textPrimary" gutterBottom>
-                     Name: {item.item.ItemName} 
+                     Name: {item?.item?.ItemName} 
                 </Typography>
             </Grid>
             <Grid item xs={2}>
                 <Typography className={classes.title} color="textPrimary" gutterBottom>
-                Quantity: {item.qty}
+                Quantity: {item?.qty}
                 </Typography>
             </Grid>
             <Grid item xs={3}>
                 <Typography fontSize={32} className={classes.title} color="textPrimary" gutterBottom>
-                Unit Price: {item.item.price} 
+                Unit Price: {item?.item?.price} 
                 </Typography>
             </Grid>
             <Grid item xs={2}>
                 <Typography fontSize={32} className={classes.title} color="textPrimary" gutterBottom>
-                Price: {item.item.price * item.qty} 
+                Price: {item?.item?.price * item?.qty} 
                 </Typography>
             </Grid>
             <Grid item xs={2}>
