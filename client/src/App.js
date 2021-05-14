@@ -11,6 +11,7 @@ import singleView from "./components/SingleView/SingleView";
 import Orders from './components/Cart/Cart';
 import AddProductPage from "./components/AddProductPage/AddProductPage";
 import Cart from "./components/Cart/Cart"
+import SellerProducts from "./components/SellerProducts/SellerProducts"
 
 const App = () =>{
     return(
@@ -24,6 +25,7 @@ const App = () =>{
                     <Route path={"/orders"} exact component={Orders}/>
                     <Route path={"/AddProductPage"} exact component={AddProductPage}/>
                     <Route path={"/cart"} exact component={Cart}/>
+                    <Route path={"/profile"} exact component={SellerProducts}/>
                 </Switch>
             </Container>
         </BrowserRouter>

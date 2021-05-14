@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
-import {Card, CardActions, CardContent, Button, Typography, Grid} from '@material-ui/core';
+import {Card, CardContent, Button, Typography, Grid} from '@material-ui/core';
 
 import { getCartItems } from "../../actions/cart"
 import CartItem from "./CartItem"

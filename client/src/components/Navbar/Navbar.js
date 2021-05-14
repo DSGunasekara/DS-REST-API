@@ -53,8 +53,8 @@ const Navbar = () =>{
             <Toolbar className={classes.toolbar}>
                 {user ? (
                     <div className={classes.profile}>
-                        <Avatar className={classes.purple} alt={user?.data.payload.user.name} >{user?.data.payload.user.name.charAt(0)}</Avatar>
-                        <Typography className={classes.userName} variant={"h6"}>{user?.data.payload.user.name}</Typography>
+                        <Avatar component={ Link } to={"/profile"} className={classes.purple} alt={user?.data.payload.user.name} >{user?.data.payload.user.name.charAt(0)}</Avatar>
+                        <Typography component={ Link } to={"/profile"} className={classes.userName} variant={"h6"}>{user?.data.payload.user.name}</Typography>
                         <Button color={"secondary"} onClick={cartPage}>
                             <ShoppingCartIcon></ShoppingCartIcon>Cart
                         </Button>

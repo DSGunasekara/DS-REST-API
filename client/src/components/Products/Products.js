@@ -30,7 +30,7 @@ const Products = ()=>{
     useEffect(()=>{
         let se = products?.filter(item=> item?.ItemName?.toLowerCase().includes(search.toLowerCase()) && item?.seller._id !== user)
         setSearchItems(se);
-    }, [products, search])
+    }, [products, search, user])
 
     return(
         !seachItems?.length ? <CircularProgress/> : (
