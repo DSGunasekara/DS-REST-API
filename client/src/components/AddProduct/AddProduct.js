@@ -1,11 +1,13 @@
-import React, {useState} from "react";
+import React, {useState, hi} from "react";
 import useStyles from './styles';
 import {TextField, Button, Typography, Paper} from "@material-ui/core";
-import {useDispatch} from "react-redux";
+import {useDispatch } from "react-redux";
 import {createProduct} from "../../actions/products";
 import FileBase from "react-file-base64";
+// import { useHistory } from 'react-router-dom';
 
-const AddProduct = ({currentId, setCurrentId}) =>{
+const AddProduct = () =>{
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')).data.payload.user._id);
 
     const [productData, setProductData] = useState({
         ItemName:'',
@@ -13,19 +15,21 @@ const AddProduct = ({currentId, setCurrentId}) =>{
         description:'',
         images:'',
         quantity:'',
+        seller: user
     });
 
     const classes = useStyles();
     const dispatch = useDispatch();
-    const user = JSON.parse(localStorage.getItem('profile'));
-    console.log(user.data.payload.user._id);
+    // const history = useHistory();
+
     const handleSubmit = async (e) =>{
         e.preventDefault();
-            dispatch(createProduct(currentId, {...productData, name:user?.result?.name}));
+            dispatch(createProduct(productData));
+            // history.push('/profile')
         //    clear();
     };
 
-    if(!user?.data.payload.user._id){
+    if(!user){
         return (
             <Paper className={classes.paper}>
                 <Typography variant={"h6"} align={"center"}>

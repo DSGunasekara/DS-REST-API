@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, FETCH_ONE } from "../constants/actionsTypes";
+import { FETCH_ALL_PRODUCTS, CREATE, FETCH_ONE } from "../constants/actionsTypes";
 import * as api from '../api/index.js';
 
 
@@ -9,7 +9,7 @@ export const getProducts = () => async (dispatch) => {
 
         const {data} = await api.fetchProducts();
 
-        dispatch ({type: FETCH_ALL, payload: data});
+        dispatch ({type: FETCH_ALL_PRODUCTS, payload: data});
 
     }catch (error) {
         console.log(error);
@@ -18,10 +18,7 @@ export const getProducts = () => async (dispatch) => {
 
 export const createProduct = (product) => async(dispatch) => {
     try{
-        const { data } = await api.createProduct(product);
-
-        dispatch({type: CREATE, payload:data});
-
+        await api.createProduct(product);
     }catch(error){
         console.log("create post error" + error);
     }
