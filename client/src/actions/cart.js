@@ -1,10 +1,10 @@
-import { CREATE, FETCH_CART_ITEMS } from "../constants/actionsTypes";
+import { CREATE_CART, FETCH_CART_ITEMS } from "../constants/actionsTypes";
 import * as api from '../api/index';
 
 export const pushToCart = (item) => async(dispatch)=>{
     try {
         const {data} = await api.addToCart(item);
-        dispatch ({type: CREATE, payload: data});
+        dispatch ({type: CREATE_CART, payload: data});
     } catch (error) {
         console.log(error);
     }
