@@ -3,6 +3,7 @@ import cors from 'cors';
 import connectDB from './Database/db.js';
 
 import cardRoute from './Routes/card.js'
+import mobileRoute from './Routes/mobile.js'
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.json({ extended: false })); //enables json
 app.get("/", (req, res) => res.send("API Running"));
 
 app.use("/api/card", cardRoute);
+app.use("/api/mobile", mobileRoute);
 
 const PORT = process.env.PORT || 5002;
 

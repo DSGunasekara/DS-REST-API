@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
-import {Card, CardContent, Button, Typography, Grid} from '@material-ui/core';
+import {Card, CardContent, Button, Typography, Grid, Snackbar} from '@material-ui/core';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 import { getCartItems } from "../../actions/cart"
 import CartItem from "./CartItem"
 import { removeCartItem } from '../../actions/cart';
+import { putOrder } from '../../actions/orders'
 import CardPay from "../Card/CardPay"
 import MobilePay from "../MobilePay/MobilePay"
 
@@ -30,6 +32,7 @@ const Cart = () =>{
     let items = useSelector((state)=> state.Cart.cart)
     const [cartItems, setCartItems ] = useState(items);
     const [total, setTotal ] = useState(0);
+    const [open, setOpen] = useState(false);
 
     useEffect(()=>{
         dispatch(getCartItems(user));
@@ -73,9 +76,37 @@ const Cart = () =>{
 
       }
 
+      const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
+
+      const pay = (order) => {
+          let cusOrder = {
+              items: cartItems,
+              customer: user,
+          }
+        console.log({...cusOrder, ...order});
+        dispatch(putOrder({...cusOrder, ...order}))
+        setCartItems(null);
+        setTotal(null)
+        setOpen(true)
+        setTotal('')
+        setCardPayment(false)
+        setMobilePayment(false)
+      }
+
 
     return(
         <>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success">
+                    <AlertTitle>Order Confirmed</AlertTitle>
+                </Alert>
+            </Snackbar>
             <h1>Cart</h1>
             { !cartItems?.length ? <h1>Cart Empty</h1> :
                 cartItems?.map(item=>(<CartItem item={item} key={item._id} removeItem={removeItem}/>))
@@ -100,12 +131,12 @@ const Cart = () =>{
             </Card>
             {
                 cardPayment && (
-                    <CardPay total={total}/>
+                    <CardPay total={total} pay={pay}/>
                 )
             }
             {
                 mobilePayment && (
-                    <MobilePay total={total}/>
+                    <MobilePay total={total} pay={pay}/>
                 )
             }
            

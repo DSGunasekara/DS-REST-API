@@ -29,5 +29,7 @@ export const deleteCartItem = (id) => API.delete(`/cart/${id}`);
 export const login = (formData) => API.post('/login', formData);
 export const signUp = (formData) => API.post('/signup', formData);
 
+export const createOrder = (order) => API.post('/order', order);
+
 
 export const getOrders = () => API.post('/order');

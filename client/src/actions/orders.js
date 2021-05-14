@@ -15,3 +15,15 @@ export const getOrders = () => async (dispatch) => {
     }
 };
 
+
+export const putOrder = (order) => async (dispatch) => {
+
+    try{
+
+        await api.createOrder(order);
+
+    }catch (error) {
+        console.log(error);
+    }
+};
+

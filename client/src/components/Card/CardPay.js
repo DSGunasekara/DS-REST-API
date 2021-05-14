@@ -12,14 +12,17 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CardPay({total}) {
+export default function CardPay({total, pay}) {
   const classes = useStyles();
 
   const [ cardData, setCardData] = useState({
     cardHolder: "",
     cardNumber: "",
-    amount: "",
-    cvc: ""
+    amount: total,
+    cvc: "",
+    payment:{
+      paymentMethod: "Card"
+    }
 });
 
   return (
@@ -54,7 +57,7 @@ export default function CardPay({total}) {
                 </Typography>
             </Grid>
             <Grid item xs={2}>
-            <Button size="small" variant="outlined" color="primary">Pay</Button>
+            <Button size="small" variant="outlined" color="primary" onClick={() => pay(cardData)}>Pay</Button>
             </Grid>
         </Grid>
       </CardContent>

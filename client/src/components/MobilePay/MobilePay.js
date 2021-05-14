@@ -12,12 +12,15 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MobilePay({total}) {
+export default function MobilePay({total , pay}) {
   const classes = useStyles();
 
   const [ cardData, setCardData] = useState({
     mobileNumber: "",
-    amount: "",
+    amount: total,
+    payment:{
+      paymentMethod: "Mobile"
+    }
 });
 
   return (
@@ -39,7 +42,7 @@ export default function MobilePay({total}) {
                 </Typography>
             </Grid>
             <Grid item xs={2}>
-            <Button size="small" variant="outlined" color="primary">Pay</Button>
+            <Button size="small" variant="outlined" color="primary" onClick={()=> pay(cardData)}>Pay</Button>
             </Grid>
         </Grid>
       </CardContent>

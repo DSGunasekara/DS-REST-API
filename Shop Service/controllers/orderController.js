@@ -4,6 +4,8 @@ import axios from "axios";
 import Product from "../Models/Product.js";
 import Order from "../Models/Order.js";
 import CardPay from "../Models/CardPay.js";
+import MobilePay from '../Models/MobilePay.js'
+import Cart from '../Models/Cart.js'
 
 const router = express.Router();
 
@@ -77,9 +79,22 @@ export const createOrder = (async(req, res)=>{
             if(pay.status === 200){
                 order.payment.status = "Paid";
             }
+        } else if(order.payment.paymentMethod === "Mobile"){
+            const mobile = new MobilePay({...req.body});
+            console.log(mobile);
+            const pay = await axios.post("http://localhost:5002/api/mobile/", {...mobile});
+            if(pay.status === 200){
+                order.payment.status = "Paid";
+            }
         }
-        order.save();
+  
+        await Promise.all(order.items.map(async(i)=>{
+            await Cart.deleteMany({item: i.item});
+        }))
+
+        await order.save();
         const delivery = await axios.post("http://localhost:5001/api/order/", {...order})
+       
         return res.status(201).send(delivery.data);
     } catch (error) {
         console.log(error);
