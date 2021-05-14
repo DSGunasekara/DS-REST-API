@@ -4,6 +4,7 @@ import { makeStyles, TextField } from '@material-ui/core';
 
 import {getProducts} from "../../actions/products";
 import SellerProduct from "./SellerProduct/SellerProduct"
+import { removeProduct } from '../../actions/products'
 
 const useStyles = makeStyles({
   root: {
@@ -36,7 +37,7 @@ const SellerProducts = () =>{
 
     const removeItem = async(id) => {
         setSearchItems(searchItems.filter(item=> item._id !== id))
-        // dispatch(removeCartItem(id));
+        dispatch(removeProduct(id));
       }
 
     return(
