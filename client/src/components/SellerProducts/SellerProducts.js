@@ -26,7 +26,7 @@ const SellerProducts = () =>{
     const products = useSelector((state) => state.products.products);
 
     const [search, setSearch ] = useState('')
-    const [seachItems, setSearchItems ] = useState(null);
+    const [searchItems, setSearchItems ] = useState(null);
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile'))?.data.payload.user._id);
 
     useEffect(()=>{
@@ -35,16 +35,15 @@ const SellerProducts = () =>{
     }, [products, search, user])
 
     const removeItem = async(id) => {
-        setSearchItems(seachItems.filter(item=> item._id !== id))
+        setSearchItems(searchItems.filter(item=> item._id !== id))
         // dispatch(removeCartItem(id));
       }
-
 
     return(
         <>
             <h1>Profile</h1>
-            { !seachItems?.length ? <h1>Cart Empty</h1> :
-                seachItems?.map(item=>(<SellerProduct item={item} key={item._id} removeItem={removeItem}/>))
+            { !searchItems?.length ? <h1>Cart Empty</h1> :
+                searchItems?.map(item=>(<SellerProduct item={item} key={item._id} removeItem={removeItem}/>))
             }
         </>
     )

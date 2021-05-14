@@ -43,7 +43,6 @@ export default function CardPay({total}) {
             <Grid item xs={3}>
             <Typography className={classes.title} color="textPrimary" gutterBottom>
             Amount: <TextField name={"cardHolder"} variant={'outlined'} label={"Amount"} fullWidth value={total}
-                           onChange={ (e) => setCardData({...cardData, amount: total})}
                 />
                 </Typography>
             </Grid>

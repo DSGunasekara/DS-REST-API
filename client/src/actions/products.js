@@ -39,3 +39,25 @@ export const getProduct = (id) => async (dispatch) => {
         console.log(error);
     }
 };
+
+export const removeProduct = (id) => async (dispatch) => {
+
+    try{
+
+        await api.deleteProduct(id);
+
+    }catch (error) {
+        console.log(error);
+    }
+};
+
+export const updateProduct = (item) => async (dispatch) => {
+
+    try{
+        console.log(item);
+        await api.updateProductItem(item);
+
+    }catch (error) {
+        console.log(error);
+    }
+};

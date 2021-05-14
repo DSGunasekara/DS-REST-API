@@ -33,7 +33,12 @@ const Products = ()=>{
     }, [products, search, user])
 
     return(
-        !seachItems?.length ? <CircularProgress/> : (
+        !seachItems?.length ? <>
+                                <TextField name={"ItemName"} variant={'outlined'} label={"Search Products"} fullWidth value={search}
+                           onChange={ (e) => setSearch(e.target.value)}
+                           />
+                           <CircularProgress/>
+                             </>: (
             <Grid className={classes.mainContainer} container alignItems={"stretch"} spacing={3}>
                 <TextField name={"ItemName"} variant={'outlined'} label={"Search Products"} fullWidth value={search}
                            onChange={ (e) => setSearch(e.target.value)}

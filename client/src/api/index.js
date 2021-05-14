@@ -16,6 +16,10 @@ export const createProduct = (newProduct) => API.post('/product', newProduct);
 
 export const fetchProduct = (id) => API.get(`/product/${id}`);
 
+export const deleteProduct = (id) => API.delete(`/product/${id}`);
+
+export const updateProductItem = (item) => API.patch(`/product/${item._id}`, item);
+
 export const addToCart = (item) => API.post('/cart', item);
 
 export const fetchCartItems = (id) =>  API.get(`/cart/user/${id}`);
