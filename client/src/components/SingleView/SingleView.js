@@ -23,7 +23,7 @@ const SingleView = () =>{
     const location = useLocation();
     const dispatch = useDispatch();
     let product = useSelector((state) => state.products.product);
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')).data.payload.user._id);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile'))?.data.payload.user._id);
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
 
@@ -93,6 +93,9 @@ const SingleView = () =>{
                     <Typography variant="body2" color="textSecondary" component="p">
                         Unit Price: <b> {product.price}</b>
                     </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        Seller: <b> {product.seller.name}</b>
+                    </Typography>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
@@ -102,9 +105,16 @@ const SingleView = () =>{
                     </Typography>
                     <Button variant="outlined" size="small" color="primary" onClick={increase}>+</Button>
                 </CardActions>
-                <CardActions>
-                    <Button variant="contained" size="small" color="primary" onClick={ addToCart }>Add to Cart</Button>
-                </CardActions>
+                {
+                    !user ? <Typography variant="body1" color="textSecondary" component="h2">
+                                LogIn To Proceed
+                            </Typography> : (
+                                <CardActions>
+                                    <Button variant="contained" size="small" color="primary" onClick={ addToCart }>Add to Cart</Button>
+                                </CardActions>
+                    )
+                }
+                
             </Card>
         )
     )
