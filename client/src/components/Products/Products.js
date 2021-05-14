@@ -33,26 +33,23 @@ const Products = ()=>{
     }, [products, search, user])
 
     return(
-        !seachItems?.length ? <>
-                                <TextField name={"ItemName"} variant={'outlined'} label={"Search Products"} fullWidth value={search}
-                           onChange={ (e) => setSearch(e.target.value)}
-                           />
-                           <CircularProgress/>
-                             </>: (
-            <Grid className={classes.mainContainer} container alignItems={"stretch"} spacing={3}>
-                <TextField name={"ItemName"} variant={'outlined'} label={"Search Products"} fullWidth value={search}
-                           onChange={ (e) => setSearch(e.target.value)}
-                />
-                {seachItems.map((product) =>(
-                    <Grid key={product._id} item xs={12} sm={4}>
-                        <div onClick={()=>single(product._id)}>
-                            <Product product={product} ></Product>
-                        </div>
+        <>
+         <TextField name={"ItemName"} variant={'outlined'} label={"Search Products"} style={{marginBottom: "10px"}} fullWidth value={search}
+                                        onChange={ (e) => setSearch(e.target.value)}
+                                    />
+            {!seachItems?.length ? <h1>No Products</h1> :(
+                <Grid className={classes.mainContainer} container alignItems={"stretch"} spacing={3}>
+                    {seachItems.map((product) =>(
+                        <Grid key={product._id} item xs={12} sm={4}>
+                            <div onClick={()=>single(product._id)}>
+                                <Product product={product} ></Product>
+                            </div>
 
-                    </Grid>
-                ))}
-            </Grid>
-        )
+                        </Grid>
+                    ))}
+                </Grid>
+            )}
+        </>
      );
 }
 

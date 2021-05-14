@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, TextField } from '@material-ui/core';
 
 import {getProducts} from "../../actions/products";
 import SellerProduct from "./SellerProduct/SellerProduct"
@@ -42,7 +42,12 @@ const SellerProducts = () =>{
     return(
         <>
             <h1>Profile</h1>
-            { !searchItems?.length ? <h1>Cart Empty</h1> :
+                   <TextField name={"ItemName"} variant={'outlined'} style={{marginBottom: "10px"}} label={"Search Products"} fullWidth value={search}
+                      onChange={ (e) => setSearch(e.target.value)}
+                    />
+            { !searchItems?.length ?
+                    <h1>No Products</h1> 
+                   :
                 searchItems?.map(item=>(<SellerProduct item={item} key={item._id} removeItem={removeItem}/>))
             }
         </>
