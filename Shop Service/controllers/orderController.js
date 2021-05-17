@@ -64,8 +64,9 @@ export const getOrder = (async(req, res)=>{
 export const createOrder = (async(req, res)=>{
     try {
         let order = new Order({...req.body});
-        const userEmail = await User.findById(order.customer).select('email')
+        const user = await User.findById(order.customer)
         let tot = 0;
+
         let orders = [];
         await Promise.all(order.items.map(async(i)=>{
             let product = await Product.findById(i.item);
@@ -76,7 +77,7 @@ export const createOrder = (async(req, res)=>{
                 itemName: product.ItemName, 
                 qty: i.qty,
                 unitPrice: product.price,
-                userEmail
+                email: user.email
             })
             await product.save();
         }))
@@ -84,12 +85,17 @@ export const createOrder = (async(req, res)=>{
         order.totalPrice = tot;
         if(order.payment.paymentMethod === "Card"){
             const card = new CardPay({...req.body});
+            card.email = user.email;
+            card.name = user.name
+            console.log(card);
             const pay = await axios.post("http://localhost:5002/api/card/", {...card});
             if(pay.status === 200){
                 order.payment.status = "Paid";
             }
         } else if(order.payment.paymentMethod === "Mobile"){
             const mobile = new MobilePay({...req.body});
+            mobile.email = user.email
+            mobile.name = user.name
             console.log(mobile);
             const pay = await axios.post("http://localhost:5002/api/mobile/", {...mobile});
             if(pay.status === 200){
@@ -104,8 +110,9 @@ export const createOrder = (async(req, res)=>{
         await order.save();
         const delivery = await axios.post("http://localhost:5001/api/order/", {...order})
        
-        await sendOrderMail(orders);
+        await sendOrderMail(orders, tot);
         return res.status(201).send(delivery.data);
+        // return res.status(200).send('ok')
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
