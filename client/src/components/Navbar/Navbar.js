@@ -6,6 +6,7 @@ import { Link,useHistory,useLocation } from 'react-router-dom';
 import {useDispatch} from "react-redux";
 import decode from 'jwt-decode';
 import useStyles from './styles'
+import shoppingCart from "../../images/image.png"
 
 const Navbar = () =>{
     const classes = useStyles();
@@ -48,7 +49,9 @@ const Navbar = () =>{
 
         <AppBar className={classes.appBar} position={"static"} color={"inherit"}>
             <div className={classes.brandContainer}>
+                <img className={classes.image}  src={shoppingCart} alt="shopping cart" height={"60"}/>
                 <Typography component={ Link } to={"/"} className={classes.heading} variant={"h2"} align={"center"}>Online Shopping</Typography>
+
             </div>
             <Toolbar className={classes.toolbar}>
                 {user ? (
