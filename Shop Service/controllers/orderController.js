@@ -3,9 +3,11 @@ import axios from "axios";
 
 import Product from "../Models/Product.js";
 import Order from "../Models/Order.js";
+import User from "../Models/User.js"
 import CardPay from "../Models/CardPay.js";
 import MobilePay from '../Models/MobilePay.js'
 import Cart from '../Models/Cart.js'
+import sendOrderMail from "../Utils/util.js";
 
 const router = express.Router();
 
@@ -62,13 +64,20 @@ export const getOrder = (async(req, res)=>{
 export const createOrder = (async(req, res)=>{
     try {
         let order = new Order({...req.body});
+        const userEmail = await User.findById(order.customer).select('email')
         let tot = 0;
-
+        let orders = [];
         await Promise.all(order.items.map(async(i)=>{
             let product = await Product.findById(i.item);
             product.quantity -= i.qty;
             product.sold += i.qty;
             tot += product.price * i.qty;
+            orders.push({
+                itemName: product.ItemName, 
+                qty: i.qty,
+                unitPrice: product.price,
+                userEmail
+            })
             await product.save();
         }))
 
@@ -95,6 +104,7 @@ export const createOrder = (async(req, res)=>{
         await order.save();
         const delivery = await axios.post("http://localhost:5001/api/order/", {...order})
        
+        await sendOrderMail(orders);
         return res.status(201).send(delivery.data);
     } catch (error) {
         console.log(error);
