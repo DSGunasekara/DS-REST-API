@@ -17,7 +17,7 @@ const Auth = () =>{
     const [isSignup, setIsSignup]= useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState(initialState);
-    const [logError, setLogError ] = useState(false);
+    const [logError, setLogError ] = useState(null);
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -26,12 +26,23 @@ const Auth = () =>{
     //to handle the submit of the sign in form
     const handleSubmit = async (e)=>{
         e.preventDefault();
+        let res;
         if(isSignup){
-           await dispatch(signup(formData, history));
+           res = await dispatch(signup(formData, history));
+           console.log(` ${res}`);
+           if(res?.response?.status === 409){
+               setLogError({
+                   title: 'Register Error',
+                   message: 'User already exits',
+               });
+           }
         }else {
-          const res = await  dispatch(signin(formData, history));
+           res = await  dispatch(signin(formData, history));
           if(res?.response?.status !== 200){
-              setLogError(true);
+            setLogError({
+                title: 'Login Error',
+                message: 'Invalid Credentials',
+            });
           }
         //  await  dispatch(getId());
         }
@@ -56,8 +67,8 @@ const Auth = () =>{
         <Container component={"main"} maxWidth={"xs"}>
             { logError &&(
             <Alert severity="error">
-                <AlertTitle>Login Error</AlertTitle>
-                Invalid Credentials
+                <AlertTitle>{logError.title}</AlertTitle>
+                {logError.message}
              </Alert>
             )
             }
@@ -72,7 +83,7 @@ const Auth = () =>{
                         {
                             isSignup && (
                                 <>
-                                    <Input name={"name"} label={"Name"} handleChange={handleChange} autoFocus half/>
+                                    <Input name={"name"} label={"Name"} handleChange={handleChange} autoFocus/>
                                 </>
                             )}
                             <Input name ={"email"} label={"Email Address"} handleChange={handleChange} type={"email"}/>
