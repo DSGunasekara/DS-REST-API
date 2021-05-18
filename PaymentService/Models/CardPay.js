@@ -5,6 +5,9 @@ const CardPaySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  name:{
+    type: String
+  },
   cardNumber: {
     type: Number,
     required: true,
@@ -16,6 +19,9 @@ const CardPaySchema = new mongoose.Schema({
       type: Number,
       default: 0
   },
+  email: {
+    type: String
+  }
 },{ timestamps: true });
 
 let CardPay = mongoose.model("CardPay", CardPaySchema);

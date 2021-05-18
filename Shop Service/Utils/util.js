@@ -8,7 +8,7 @@ dotenv.config();
 //   constructor() {}
 
   //Send an email alert to change password request
-    const sendOrderMail = async(orders)=>{
+    const sendOrderMail = async(orders, tot)=>{
         let transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 587,
@@ -42,11 +42,13 @@ dotenv.config();
             }
             
             message +=  '</table>';
+            
+            message += `<br> <h2> Your Total is Rs: ${tot}/= <br> <h3> You will recive your order soon`
       
           //Send email with the message
           let info = await transporter.sendMail({
             from: '"Online Shopper" <nezuswear@gmail.com>', // sender address
-            to: orders[0].userEmail.email, // list of receivers
+            to: orders[0].email, // list of receivers
             subject: "Order Placed", // Subject line
             html: message
           });
