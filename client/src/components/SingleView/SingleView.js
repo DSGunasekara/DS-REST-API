@@ -66,6 +66,7 @@ const SingleView = () =>{
     
         setOpen(false);
       };
+      console.log(product);
 
     return(
         product && (    
@@ -78,7 +79,7 @@ const SingleView = () =>{
                 <CardActionArea>
                     <CardMedia
                     className={classes.media}
-                    image={product.images}
+                    image={`http://localhost:5000/${product.images}`}
                     title="Contemplative Reptile"
                     />
                     <CardContent>

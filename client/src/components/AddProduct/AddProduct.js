@@ -25,9 +25,22 @@ const AddProduct = () =>{
     const dispatch = useDispatch();
     // const history = useHistory();
 
+    const handleFile = (e) =>{
+        console.log(e.target.files[0])
+        setProductData({...productData, images: e.target.files[0]})
+    }
+
     const handleSubmit = async (e) =>{
         e.preventDefault();
-        dispatch(createProduct(productData));
+        console.log(productData);
+        const formData = new FormData();
+        formData.append('ItemName',productData.ItemName)
+        formData.append('price',productData.price)
+        formData.append('description',productData.description)
+        formData.append('images',productData.images)
+        formData.append('quantity',productData.quantity)
+        formData.append('seller',user)
+        dispatch(createProduct(formData));
         setOpen(true)
         setProductData({ItemName: '', price: '', description: '', images: '', quantity: ''})
     };
@@ -84,7 +97,7 @@ const AddProduct = () =>{
                     />
 
                     <div className={classes.fileInput}>
-                        <FileBase type={"file"} mulitple={false} onDone={({base64}) => setProductData({ ...productData, images: base64})}/>
+                        <input type={"file"} mulitple={false} onChange={(e) => handleFile(e)}/>
                     </div>
 
                     <Button className={classes.buttonSubmit} color={"primary"} variant={"contained"} size={"large"} type={"submit"} fullWidth>create</Button>

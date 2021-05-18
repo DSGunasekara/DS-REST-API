@@ -36,9 +36,12 @@ export const getProduct = (async(req, res)=>{
 //Add a product
 export const createProduct = (async(req, res)=>{
     try {
+        console.log(req.file);
         let product = new Product({...req.body});
+        product.images = req.file.path
         product = await product.save();
         return res.status(201).send(product);
+        // return res.status(200).send('ok')
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);
