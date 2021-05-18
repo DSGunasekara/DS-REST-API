@@ -2,6 +2,7 @@ import express from "express";
 import Product from "../Models/Product.js";
 import Order from "../Models/Order.js";
 import axios from "axios";
+import sendMail from "../Utils/email.js"
 
 const router = express.Router();
 
@@ -53,25 +54,11 @@ export const getOrder = (async(req, res)=>{
 
 //Add a order
 export const createOrder = (async(req, res)=>{
-    try {
-        // let order = new Order({...req.body});
-
-        // let tot = 0;
-
-        // await Promise.all(order.items.map(async(i)=>{
-        //     let product = await Product.findById(i.item);
-        //     product.quantity -= i.qty;
-        //     product.sold += i.qty;
-        //     tot += product.price * i.qty;
-        //     console.log(product.quantity);
-        //     await product.save();
-        // }))
-
-        // order.totalPrice = tot;
-        // order.save();
-        
+    try {        
         const order = await axios.get(`http://localhost:5000/api/order/${req.body._doc._id}`)
         let delivery = new Order({...order.data})
+        console.log(delivery);
+        sendMail(delivery);
         await delivery.save()
         return res.status(201).send(delivery);
     } catch (error) {

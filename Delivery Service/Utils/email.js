@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const sendMail = async(order, type)=>{
+const sendMail = async(order)=>{
     let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
@@ -14,31 +14,36 @@ const sendMail = async(order, type)=>{
         },
       });
 
-      let message, sender;
-  
-      if(type === "card"){
-        sender = 'Bank'
-        message = (
-          `<h1>Hello ${order.name}..</h1>
-          Card Number: **** **** **** ${order.cardNumber.toString().slice(12,17)} <br>
-          Transaction Amount: Rs ${order.amount}<br>
-          Transaction Status: Paid`
-          );
-      }else{
-        sender = 'Mobile Company'
-        message = (
-          `<h1>Hello ${order.name}..</h1>
-          Card Number: *******${order.mobileNumber.slice(8,11)} <br>
-          Transaction Amount: Rs ${order.amount}<br>
-          Added to Bill: Successful`
-          );
+      let message = (
+        '<h1> Your order is on the way</h1>' +
+        '<table style="border: 1px solid #333; width: 100%; border-collapse: collapse;">' +
+        '<thead>' +
+        '<th> Item Name </th>' +
+        '<th> Location </th>'  +
+        /*...*/
+        '</thead>'
+      ); 
+      let orders = order.items
+      for(const order of orders) {
+         message += (
+           '<tr style="text-align: center;">' +
+            '<td>' + order.item.ItemName + '</td>' +
+            '<td>' + order.item.seller.address + '</td>' +
+            /*...*/
+          '</tr>'
+         );
       }
+      
+      message +=  '</table>';
+      
+      message += `<br><h3> You will recive your order soon</h3>`
+
   
       //Send email with the message
       let info = await transporter.sendMail({
-        from: `"${sender}" <nezuswear@gmail.com>`, // sender address
-        to: order.email, // list of receivers
-        subject: "Purchase Message", // Subject line
+        from: `"Delivery Service" <nezuswear@gmail.com>`, // sender address
+        to: order.customer.email, // list of receivers
+        subject: "Delivery Message", // Subject line
         html: message
       });
 }

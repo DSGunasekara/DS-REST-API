@@ -32,7 +32,7 @@ dotenv.config();
             
             for(const order of orders) {
                message += (
-                 '<tr>' +
+                 '<tr style="text-align: center;">' +
                   '<td>' + order.itemName + '</td>' +
                   '<td>' + order.qty + '</td>' +
                   '<td>' + order.unitPrice + '</td>' +

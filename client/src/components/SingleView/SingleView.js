@@ -112,7 +112,11 @@ const SingleView = () =>{
                                 LogIn To Proceed
                             </Typography> : (
                                 <CardActions>
-                                    <Button variant="contained" size="small" color="primary" onClick={ addToCart }>Add to Cart</Button>
+                                    {
+                                        product.quantity === 0 ?
+                                        <Button variant="contained" disabled size="small" color="primary" onClick={ addToCart }>Out of Stock</Button>:
+                                        <Button variant="contained" size="small" color="primary" onClick={ addToCart }>Add to Cart</Button>
+                                    }
                                 </CardActions>
                     )
                 }
