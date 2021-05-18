@@ -11,10 +11,11 @@ import { pushToCart } from "../../actions/cart"
 
 const useStyles = makeStyles({
     root: {
-      maxWidth: 1024,
+      maxWidth: 1000,
     },
     media: {
-      height: 400,
+        height: 400,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
   });
 
