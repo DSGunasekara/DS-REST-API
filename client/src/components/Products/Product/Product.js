@@ -15,7 +15,10 @@ const Product = ({product}) =>{
         <Card className={classes.card} >
             <CardMedia className={classes.media} image={product.images} title={product.ItemName}/>
             <div>
-                <Typography variant={"h6"}>{product.ItemName}</Typography>
+                <Typography variant={"h5"}>{product.ItemName}</Typography>
+            </div>
+            <div className={classes.details}>
+                <Typography variant={"body2"} color={"textSecondary"}>{product.description}</Typography>
             </div>
         </Card>
     )
