@@ -4,7 +4,7 @@ import User from "../Models/User.js";
 
 const router = express.Router();
 
-//get all products
+//get all cart items
 export const getCartItems = (async(req, res)=>{
     try {
         const items = await Cart.find({}).populate({
@@ -21,7 +21,7 @@ export const getCartItems = (async(req, res)=>{
     }
 });
 
-//get one products
+//get one cart items
 export const getCartItem = (async(req, res)=>{
     try {
         const item = await Cart.findById({ _id: req.params.id }).populate({
@@ -39,7 +39,7 @@ export const getCartItem = (async(req, res)=>{
     }
 });
 
-//get user items
+//get user cart items
 export const getUserItems = (async(req, res)=>{
     try {
         const items = await Cart.find({ customer: req.params.id }).populate({
@@ -57,7 +57,7 @@ export const getUserItems = (async(req, res)=>{
     }
 });
 
-//Add a product
+//Add a cart item
 export const createCartItem = (async(req, res)=>{
     try {
         let item = new Cart({...req.body});
@@ -69,7 +69,7 @@ export const createCartItem = (async(req, res)=>{
     }
 });
 
-//update a product
+//update a cart item
 export const updateCartItem = (async(req, res)=>{
     try {
         const item = await Cart.findById({ _id: req.params.id });
@@ -83,7 +83,7 @@ export const updateCartItem = (async(req, res)=>{
     }
 });
 
-//delete a product
+//delete a cart item
 export const deleteProduct = (async(req, res)=>{
     try {
         const item = await Cart.findById({ _id: req.params.id });

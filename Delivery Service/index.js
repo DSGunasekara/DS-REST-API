@@ -2,9 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import connectDB from './Database/db.js';
 
-import userRoute from './Routes/user.js';
-import authRoute from "./Routes/auth.js";
-import orderRoute from "./Routes/order.js";
+import deliveryRoute from "./Routes/order.js";
 
 const app = express();
 
@@ -19,9 +17,7 @@ app.use(express.json({ extended: false })); //enables json
 
 app.get("/", (req, res) => res.send("API Running"));
 
-app.use("/api/user", userRoute);
-app.use("/api/login", authRoute);
-app.use("/api/order", orderRoute);
+app.use("/api/delivery", deliveryRoute);
 
 const PORT = process.env.PORT || 5001;
 

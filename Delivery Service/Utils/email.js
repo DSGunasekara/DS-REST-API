@@ -24,6 +24,7 @@ const sendMail = async(order)=>{
         '</thead>'
       ); 
       let orders = order.items
+      //map through the orders
       for(const order of orders) {
          message += (
            '<tr style="text-align: center;">' +
@@ -42,10 +43,10 @@ const sendMail = async(order)=>{
       //Send email with the message
       let info = await transporter.sendMail({
         from: `"Delivery Service" <nezuswear@gmail.com>`, // sender address
-        to: order.customer.email, // list of receivers
+        to: order.customer.email, // reciever email
         subject: "Delivery Message", // Subject line
         html: message
       });
 }
-    //let testAccount = await nodemailer.createTestAccount();
+
 export default sendMail;

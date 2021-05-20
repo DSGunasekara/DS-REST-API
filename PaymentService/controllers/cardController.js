@@ -8,6 +8,7 @@ export const addPayment = ( async(req, res)=>{
     try {
         let cardPay = new CardPay({...req.body._doc});
         await cardPay.save();
+        //send email to user about card transaction
         sendMail(cardPay, "card");
         res.status(200).send("Paid");
     } catch (error) {

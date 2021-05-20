@@ -14,6 +14,7 @@ export const login = (async(req, res)=>{
     const user = await User.findOne({ email });
     if (!user) return res.status(404).send("No user found");
 
+    //checking the password is matching
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).send("Invalid credentials");
 
@@ -21,6 +22,7 @@ export const login = (async(req, res)=>{
       user
     };
 
+    //sending the jwt token with user details
     return jwt.sign(
       payload,
       process.env.JWT_SECRET,
@@ -35,13 +37,14 @@ export const login = (async(req, res)=>{
   }
 });
 
-export const checkUser = (async(req, res)=>{
-  try {
-    console.log(req.user);
-    return res.status(200).send(req.user);
-  } catch (error) {
-    return res.status(500).send(error);
-  }
-});
+// checking the users jwt token 
+// export const checkUser = (async(req, res)=>{
+//   try {
+//     console.log(req.user);
+//     return res.status(200).send(req.user);
+//   } catch (error) {
+//     return res.status(500).send(error);
+//   }
+// });
 
 export default router;

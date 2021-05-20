@@ -8,6 +8,7 @@ export const addPayment = ( async(req, res)=>{
     try {
         let mobilePay = new MobilePay({...req.body._doc});
         await mobilePay.save();
+        //send email to the user about bill
         sendMail(mobilePay, "mobile")
         res.status(200).send("Paid");
     } catch (error) {

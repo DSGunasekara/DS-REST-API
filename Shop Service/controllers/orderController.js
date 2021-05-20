@@ -68,6 +68,8 @@ export const createOrder = (async(req, res)=>{
         let tot = 0;
 
         let orders = [];
+
+        //reduce quantity and add to sold itmes 
         await Promise.all(order.items.map(async(i)=>{
             let product = await Product.findById(i.item);
             product.quantity -= i.qty;
@@ -83,7 +85,8 @@ export const createOrder = (async(req, res)=>{
         }))
 
         order.totalPrice = tot;
-        if(order.payment.paymentMethod === "Card"){
+
+        if(order.payment.paymentMethod === "Card"){//send a request to card payment service
             const card = new CardPay({...req.body});
             card.email = user.email;
             card.name = user.name
@@ -92,7 +95,7 @@ export const createOrder = (async(req, res)=>{
             if(pay.status === 200){
                 order.payment.status = "Paid";
             }
-        } else if(order.payment.paymentMethod === "Mobile"){
+        } else if(order.payment.paymentMethod === "Mobile"){//send a request to mobile payment service
             const mobile = new MobilePay({...req.body});
             mobile.email = user.email
             mobile.name = user.name
@@ -103,16 +106,15 @@ export const createOrder = (async(req, res)=>{
             }
         }
   
-        await Promise.all(order.items.map(async(i)=>{
+        await Promise.all(order.items.map(async(i)=>{//delete all the cart items from the order
             await Cart.deleteMany({item: i.item});
         }))
 
         await order.save();
-        const delivery = await axios.post("http://localhost:5001/api/order/", {...order})
+        const delivery = await axios.post("http://localhost:5001/api/delivery/", {...order})//send a request to delivery payment service
        
-        await sendOrderMail(orders, tot);
+        await sendOrderMail(orders, tot); // send email about the order
         return res.status(201).send(delivery.data);
-        // return res.status(200).send('ok')
     } catch (error) {
         console.log(error);
         return res.status(500).send(error);

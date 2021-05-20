@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+//verify the jwt token is valid or not
 const verify = function (req, res, next) {
   //Get token from header
   let token = req.header("x-access-token") || req.header("Authorization");
