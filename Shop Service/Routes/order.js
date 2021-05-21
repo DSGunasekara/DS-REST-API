@@ -5,7 +5,7 @@ import verify from '../Middleware/verify.js'
 import  {getOrder, getOrders, createOrder, updateOrder, deleteOrder } from '../controllers/orderController.js';
 
 router.get('/', verify, getOrders);
-router.get('/:id', verify, getOrder);
+router.get('/:id', getOrder);
 router.post('/', verify, createOrder);
 router.patch('/:id', verify, updateOrder);
 router.delete('/:id', verify, deleteOrder);

@@ -37,14 +37,4 @@ export const login = (async(req, res)=>{
   }
 });
 
-// checking the users jwt token 
-// export const checkUser = (async(req, res)=>{
-//   try {
-//     console.log(req.user);
-//     return res.status(200).send(req.user);
-//   } catch (error) {
-//     return res.status(500).send(error);
-//   }
-// });
-
 export default router;

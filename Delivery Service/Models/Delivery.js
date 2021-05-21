@@ -1,7 +1,7 @@
 // const mongoose = require("mongoose");
 import mongoose from 'mongoose';
 
-const OrderSchema = new mongoose.Schema({
+const DeliverySchema = new mongoose.Schema({
   items:[
     {
         item:{
@@ -75,6 +75,6 @@ const OrderSchema = new mongoose.Schema({
   }
 },{ timestamps: true });
 
-let Order = mongoose.model("DeliveryOrder", OrderSchema);
+let Delivery = mongoose.model("DeliveryOrder", DeliverySchema);
 
-export default Order;
+export default Delivery;
