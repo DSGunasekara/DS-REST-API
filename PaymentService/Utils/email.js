@@ -28,7 +28,7 @@ const sendMail = async(order, type)=>{
         sender = 'Mobile Company'
         message = (
           `<h1>Hello ${order.name}..</h1>
-          Card Number: *******${order.mobileNumber.slice(8,11)} <br>
+          Phone Number: 0** **** ${order.mobileNumber.slice(8,11)} <br>
           Transaction Amount: Rs ${order.amount}<br>
           Added to Bill: Successful`
           );
