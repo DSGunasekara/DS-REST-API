@@ -78,18 +78,18 @@ export default function UpdateProduct({item, updateProductItem}) {
   );
 
   return (
-    <div>
-      <Button size="small" variant="outlined" color="primary" onClick={handleOpen}>
-        Update
-      </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        {body}
-      </Modal>
-    </div>
+    // <div>
+    //   <Button size="small" variant="outlined" color="primary" onClick={handleOpen}>
+    //     Update
+    //   </Button>
+    //   <Modal
+    //     open={open}
+    //     onClose={handleClose}
+    //     aria-labelledby="simple-modal-title"
+    //     aria-describedby="simple-modal-description"
+    //   >
+    //     {body}
+    //   </Modal>
+    // </div>
   );
 }
